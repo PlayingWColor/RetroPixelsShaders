@@ -2,8 +2,8 @@
 
 #version 120
 
-varying vec2 texcoord;
-varying vec2 lightcoord;
+noperspective varying vec2 texcoord;
+noperspective varying vec2 lightcoord;
 
 varying vec3 normal;
 varying vec4 vertexColor;

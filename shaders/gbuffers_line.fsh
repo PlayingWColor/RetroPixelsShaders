@@ -2,8 +2,8 @@
 
 #version 120
 
-varying vec2 texcoord;
-varying vec2 lightcoord;
+noperspective varying vec2 texcoord;
+noperspective varying vec2 lightcoord;
 
 uniform sampler2D texture;
 

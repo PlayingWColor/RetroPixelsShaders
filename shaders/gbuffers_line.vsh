@@ -3,8 +3,8 @@
 #version 120
 #include "ps_vertex_transform.glsl"
 
-varying vec2 texcoord;
-varying vec2 lightcoord;
+noperspective varying vec2 texcoord;
+noperspective varying vec2 lightcoord;
 
 void main()
 {
