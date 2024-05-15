@@ -25,12 +25,17 @@ void main()
     float yPixelCoord = texcoord.y * 240;
     yPixelCoord = yPixelCoord - floor(yPixelCoord);
 
-    vec3 pixelBleed = (1.0-xPixelCoord) * 2 * vec3(1.0,0.0,0.0) + (xPixelCoord) * 2 * vec3(0.0,1.0,0.0) + (1-2*abs(xPixelCoord-0.5)) * 2 * vec3(0.0,0.0,1.0);
-    pixelBleed *= vec3(1.5-2*abs(yPixelCoord-0.5));
-
-    float vignette = 1.0-length(texcoord-0.5);
-
     vec3 color = texture2D(colortex0, vec2(lowResX,lowResY)).rgb;
 
-    gl_FragColor = vec4(color*vignette*pixelBleed,1.0);
+    vec3 pixelBleed = (1.0-abs(xPixelCoord*5.0-1.0)) * vec3(color.r,0.0,0.0) + (1.0-abs(xPixelCoord*5.0-2.5)) * vec3(0.0,color.g,0.0) + (1.0-abs(5.0*xPixelCoord-4)) * vec3(0.0,0.0,color.b);
+    pixelBleed *= vec3(1.5-2*abs(yPixelCoord-0.5));
+    pixelBleed *= 3;
+
+    vec2 texCoordCenterSquare = vec2(pow(1.0-2.0*texcoord.x,2),pow(1.0-2.0*texcoord.y,2));
+
+    float vignette = clamp(3.0*(1.0-texCoordCenterSquare.x)*(1.0-texCoordCenterSquare.y),0.0,1.0);
+
+    
+
+    gl_FragColor = vec4(vignette*pixelBleed,1.0);
 }
