@@ -11,31 +11,9 @@ uniform sampler2D gnormal;
 uniform float viewWidth;
 uniform float viewHeight;
 
+#include "/utility/gaussian.glsl"
+
 void main()
 {
-    float lowResX = texcoord.x;//round(texcoord.x * 320.0)/320.0;
-    float lowResY = texcoord.y;//round(texcoord.y * 240.0)/240.0;
-    //fix pixel blur offset
-    //lowResX = round(lowResX * viewWidth)/viewWidth + 0.5/viewWidth;
-    //lowResY = round(lowResY * viewHeight)/viewHeight + 0.5/viewHeight;
-
-    float xPixelCoord = texcoord.x * 320;
-    xPixelCoord = xPixelCoord - floor(xPixelCoord);
-
-    float yPixelCoord = texcoord.y * 240;
-    yPixelCoord = yPixelCoord - floor(yPixelCoord);
-
-    vec3 color = texture2D(colortex0, vec2(lowResX,lowResY)).rgb;
-
-    vec3 pixelBleed = (1.0-abs(xPixelCoord*5.0-1.0)) * vec3(color.r,0.0,0.0) + (1.0-abs(xPixelCoord*5.0-2.5)) * vec3(0.0,color.g,0.0) + (1.0-abs(5.0*xPixelCoord-4)) * vec3(0.0,0.0,color.b);
-    pixelBleed *= vec3(1.5-2*abs(yPixelCoord-0.5));
-    pixelBleed *= 3;
-
-    vec2 texCoordCenterSquare = vec2(pow(1.0-2.0*texcoord.x,2),pow(1.0-2.0*texcoord.y,2));
-
-    float vignette = clamp(3.0*(1.0-texCoordCenterSquare.x)*(1.0-texCoordCenterSquare.y),0.0,1.0);
-
-    
-
-    gl_FragColor = vec4(vignette*pixelBleed,1.0);
+    gl_FragColor = FastGaussianBlur(colortex0, texcoord, 0.002, 4)*3 + FastGaussianBlur(colortex0, texcoord, 0.01, 8)*2;
 }
