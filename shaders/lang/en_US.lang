@@ -1,0 +1,4 @@
+option.CRT=CRT Effect
+option.CRT.comment=Imitates the look of a CRT TV
+value.CRT.0=OFF
+value.CRT.1=ON

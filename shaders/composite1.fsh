@@ -1,5 +1,7 @@
 #version 120
 
+#define CRT 1 //[0 1]
+
 varying vec2 texcoord;
 
 uniform sampler2D colortex0;
@@ -11,6 +13,7 @@ uniform float viewHeight;
 
 void main()
 {
+#if CRT == 1
     float lowResX = texcoord.x;//round(texcoord.x * 320.0)/320.0;
     float lowResY = texcoord.y;//round(texcoord.y * 240.0)/240.0;
     //fix pixel blur offset
@@ -37,4 +40,9 @@ void main()
     /* DRAWBUFFERS:0 */
     // Finally write the diffuse color
     gl_FragData[0] = vec4(vignette*pixelBleed,1.0);
+#else
+    /* DRAWBUFFERS:0 */
+    // Finally write the diffuse color
+    gl_FragData[0] = texture2D(colortex0, texcoord);
+#endif
 }

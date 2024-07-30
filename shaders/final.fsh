@@ -2,6 +2,8 @@
 
 #version 120
 
+#define CRT 1 //[0 1]
+
 varying vec2 texcoord;
 
 uniform sampler2D colortex0;
@@ -15,5 +17,9 @@ uniform float viewHeight;
 
 void main()
 {
+#if CRT == 1
     gl_FragColor = FastGaussianBlur(colortex0, texcoord, 0.002, 4)*3 + FastGaussianBlur(colortex0, texcoord, 0.01, 8)*2;
+#else
+    gl_FragColor = texture2D(colortex0, texcoord);
+#endif
 }

@@ -2,6 +2,8 @@
 
 #version 120
 
+
+
 varying vec2 texcoord;
 
 uniform vec3 sunPosition;
