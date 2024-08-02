@@ -1,6 +1,6 @@
 #version 120
 
-#define CRT 1 //[0 1]
+#define CRT 0 //[0 1]
 
 varying vec2 texcoord;
 

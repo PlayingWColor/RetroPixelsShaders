@@ -11,5 +11,5 @@ These shaders are a work in progress, so they may not work as intended under all
 - Dithered Colors
 - Forced 320x240 resolution
 - Vertex Jitter
-- Affine Texture Mapping
-- CRT Effect
+- Affine Texture Mapping (NEW) : Textures will distort much like in old Playstation games.
+- CRT Effect (NEW) : Enable from Shader Settings
